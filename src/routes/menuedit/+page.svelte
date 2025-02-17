@@ -2,10 +2,10 @@
 	import { enhance } from '$app/forms';
   import type { ActionData } from './$types';
   import type { Item } from '$lib/server/db/schema';
+	import ItemListView from '$lib/ItemListView.svelte';
 
   let { form, data }: { form: ActionData, data: {items: Array<Item>} } = $props();
-    console.log('client side', data.items);
-  const items = data.items;
+  
 </script>
 
 <h1 class="text-center">Add menu items</h1>
@@ -26,12 +26,4 @@
 </form>
 <p style="color: red">{form?.message ?? ''}</p>
 
-<ul>
-  {#if items.length === 0}
-  <li>No menu items avaiable</li>
-  {:else}
-    {#each items as item}
-      <li>{item.name} - {item.size} - ${item.price}</li>
-    {/each}
-  {/if}
-</ul>
+<ItemListView {data} />
